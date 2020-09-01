@@ -4,10 +4,10 @@ const user = require('../user-info.json')
 const fs = require('fs')
 const { getPaperIds, getDocumentMetaData, generateChartData } = require('./helpers')
 
-router.get('/auth/:username/:password', (req, res) => {
+router.get('/auth/:username/:password', (req, res, next) => {
 	
 	if (user.username.localeCompare(req.params.username) == 0 && user.password.localeCompare(req.params.password) == 0) {
-		res.send("success")
+		res.status(200).send("success")
 	} else {
 		res.send("fail")
 	}

@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     fetchDocuments: async function () {
-      this.loading = true;
+     
       if (!this.searchTerm) {
         this.$toasted.show("Please enter a term", {
           duration: 3000,
@@ -55,6 +55,7 @@ export default {
           type: "error",
         });
       } else {
+		this.loading = true;
         const response = await axios.get(`api/search/${this.searchTerm}`);
         this.metaData = response.data.metaData;
         this.chartData.labels = response.data.chartData.labels;

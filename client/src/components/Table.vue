@@ -12,7 +12,7 @@
         aria-previous-label="Previous page"
         aria-page-label="Page"
         aria-current-label="Current page"
-        striped="true"
+        :striped="true"
         icon-pack="fa"
       >
         <b-table-column
@@ -24,7 +24,7 @@
         >{{ props.row.key }}</b-table-column>
         <b-table-column
           field="title"
-          centered="true"
+          :centered="true"
           label="TITLE"
           width="100"
           v-slot="props"
@@ -32,48 +32,48 @@
         <b-table-column
           field="pub_date"
           label="PUB_DATE"
-          centered="true"
+          :centered="true"
           width="60"
           v-slot="props"
         >{{ props.row.pub_date}}</b-table-column>
         <b-table-column
           field="source"
-          centered="true"
+          :centered="true"
           label="SOURCE"
           width="40"
           v-slot="props"
         >{{ props.row.source}}</b-table-column>
         <b-table-column
           field="volume"
-          centered="true"
+          :centered="true"
           label="VOLUME"
           width="40"
           v-slot="props"
         >{{ props.row.volume}}</b-table-column>
         <b-table-column
           field="first_page"
-          centered="true"
+          :centered="true"
           label="FIRST PAGE"
           width="40"
           v-slot="props"
         >{{ props.row.first_page}}</b-table-column>
         <b-table-column
           field="last_page"
-          centered="true"
+          :centered="true"
           label="LAST PAGE"
           width="40"
           v-slot="props"
         >{{ props.row.last_page}}</b-table-column>
-		<b-table-column
+        <b-table-column
           field="issue"
-          centered="true"
+          :centered="true"
           label="ISSUE"
           width="40"
           v-slot="props"
         >{{ props.row.issue}}</b-table-column>
-		<b-table-column
+        <b-table-column
           field="doi"
-          centered="true"
+          :centered="true"
           label="DOI"
           width="40"
           v-slot="props"

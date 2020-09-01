@@ -1,5 +1,5 @@
 <template>
-  <b-navbar type="is-primary" fixed-top="true">
+  <b-navbar type="is-primary" :fixed-top="true">
     <template slot="brand">
       <b-navbar-item>
         <img src="../assets/document.png" alt="docview" />
@@ -23,11 +23,6 @@
 <script>
 export default {
   name: "Header",
-  //   data: function () {
-  //     return {
-  //       isLoggedIn: this.$store.state.isLoggedIn,
-  //     };
-  //   },
   computed: {
     isLoggedIn() {
       return this.$store.state.isLoggedIn;

@@ -9,7 +9,6 @@
         <b-input v-model="password" maxlength="30"></b-input>
       </b-field>
       <b-button v-on:click="checkCredentials" type="is-primary">LogIn</b-button>
-      <!-- <p class="warn">{{ message }}</p> -->
     </div>
   </section>
 </template>
@@ -33,8 +32,7 @@ export default {
           .get(`api/auth/${this.username}/${this.password}`)
           .then((response) => {
             console.log(response);
-
-            if (response.data === "fail") {
+            if (response.data == "fail") {
               this.$toasted.show("Invalid credentials", {
                 duration: 3000,
                 icon: "exclamation-circle",
