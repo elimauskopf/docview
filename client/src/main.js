@@ -5,6 +5,10 @@ import 'buefy/dist/buefy.css'
 import VueToasted from 'vue-toasted'
 import router from './router'
 import VueSession from 'vue-session'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
 
 
 
@@ -17,7 +21,19 @@ Vue.use(VueToasted, {
 	iconPack: 'fontawesome'
 })
 
+const store = new Vuex.Store({
+	state: {
+		isLoggedIn: false
+	},
+	mutations: {
+		toggleLogIn(state) {
+			state.isLoggedIn = !state.isLoggedIn
+		}
+	}
+})
+
 new Vue({
-  router,
-  render: h => h(App),
+	router,
+	store,
+	render: h => h(App),
 }).$mount('#app')

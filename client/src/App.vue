@@ -14,7 +14,10 @@ export default {
     Header
     },
   beforeCreate: function () {
-    if (this.$session.get("isLoggedIn") == true) {
+	if (this.$session.get("isLoggedIn") == true && this.$store.state.isLoggedIn == false) {
+		this.$store.commit('toggleLogIn')
+	}
+    if (this.$session.get("isLoggedIn") == true && this.$router.currentRoute.path !== "/search") {
       this.$router.push("/search");
     } 
   },

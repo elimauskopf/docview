@@ -1,30 +1,53 @@
 <template>
   <section>
-    <b-field label="Find a document">
-      <b-input class="search-bar" v-model="searchTerm" icon="magnify"></b-input>
-      <b-button v-on:click="fetchDocuments" class="search-button" type="is-success">Search</b-button>
-    </b-field>
-    <DataVis v-bind:documents="items" />
+    <div class="container">
+      <b-field label="Find a document">
+        <b-input class="search-bar" v-model="searchTerm" icon="magnify"></b-input>
+        <b-button v-on:click="fetchDocuments" class="search-button" type="is-success">Search</b-button>
+      </b-field>
+      <b-progress v-if="loading" class="progress-bar" type="is-success" size="is-large"></b-progress>
+      <Table v-if="loaded" :documents="metaData" />
+      <BarChart v-if="loaded" class="bar" :chartData="chartData" :options="options" />
+    </div>
   </section>
 </template>
 
 <script>
 import axios from "axios";
-import DataVis from "./DataVis";
+import Table from "./Table";
+import BarChart from "./BarChart";
 
 export default {
   name: "Search",
   components: {
-    DataVis
+    Table,
+    BarChart,
   },
   data: function () {
     return {
       searchTerm: "",
-      items: [],
+      metaData: [],
+      chartData: {
+        labels: [],
+        datasets: [
+          {
+            label: "Documents by Publication Year",
+            backgroundColor: "#f87979",
+            data: [],
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+      },
+      loaded: false,
+      loading: false,
     };
   },
   methods: {
-    fetchDocuments: function () {
+    fetchDocuments: async function () {
+      this.loading = true;
       if (!this.searchTerm) {
         this.$toasted.show("Please enter a term", {
           duration: 3000,
@@ -32,9 +55,12 @@ export default {
           type: "error",
         });
       } else {
-        axios.get(`api/search/${this.searchterm}`).then((response) => {
-          this.items = response.data
-        });
+        const response = await axios.get(`api/search/${this.searchTerm}`);
+        this.metaData = response.data.metaData;
+        this.chartData.labels = response.data.chartData.labels;
+		this.chartData.datasets[0].data = response.data.chartData.data;
+		this.loading = false
+        this.loaded = true;
       }
     },
   },
@@ -44,10 +70,17 @@ export default {
 <style scoped>
 .search-bar {
   padding-right: 1em;
-  padding-left: 10%;
+  padding-left: 20%;
   width: 75%;
 }
 
+.bar {
+  padding-bottom: 1em;
+}
+
+.progress-bar {
+  padding-top: 3em;
+}
 .search-button {
   float: right;
 }

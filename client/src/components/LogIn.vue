@@ -48,6 +48,7 @@ export default {
               });
               this.$session.start();
               this.$session.set("isLoggedIn", true);
+              this.$store.commit("toggleLogIn");
               this.$router.push("search");
             }
           });
@@ -60,6 +61,14 @@ export default {
       }
     },
   },
+  beforeCreate: function () {
+    if (
+      this.$session.get("isLoggedIn") == true &&
+      this.$router.currentRoute.path !== "/search"
+    ) {
+      this.$router.push("/search");
+    }
+  },
 };
 </script>
 
@@ -67,6 +76,7 @@ export default {
 .login-field {
   width: 15em;
   margin: auto;
+  padding-top: 1em;
 }
 
 .warn {
